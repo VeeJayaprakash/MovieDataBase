@@ -15,6 +15,7 @@ import SwiftUI
 final class MovieListCoordinator {
     private let navigationController: UINavigationController
     private let container: DependencyContainer
+    private var viewModel: MovieListViewModel?
 
     init(navigationController: UINavigationController, container: DependencyContainer) {
         self.navigationController = navigationController
@@ -23,9 +24,9 @@ final class MovieListCoordinator {
 
     /// Starts the coordinator and displays the movie list.
     func start() {
-        let repository = container.makeMockMovieRepository()
-        let viewModel = MovieListViewModel(repository: repository)
-        let view = MovieListView(viewModel: viewModel)
+        let repository = container.makeMovieRepository()
+        viewModel = MovieListViewModel(repository: repository)
+        let view = MovieListView(viewModel: viewModel!)
         let hostingController = UIHostingController(rootView: view)
         hostingController.title = "Popular Movies"
         navigationController.pushViewController(hostingController, animated: false)

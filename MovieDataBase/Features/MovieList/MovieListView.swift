@@ -43,6 +43,7 @@ struct MovieListView: View {
                 }
             }
         }
+        .navigationTitle("Movies")
     }
 }
 
@@ -93,5 +94,11 @@ struct MovieRowView: View {
             Spacer()
         }
         .padding(.vertical, 4)
+    }
+}
+
+#Preview {
+    NavigationStack {
+        MovieListView(viewModel: MovieListViewModel(repository: MockMovieRepository()))
     }
 }

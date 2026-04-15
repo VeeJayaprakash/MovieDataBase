@@ -15,6 +15,7 @@ import SwiftUI
 final class SearchCoordinator {
     private let navigationController: UINavigationController
     private let container: DependencyContainer
+    private var viewModel: SearchViewModel?
 
     init(navigationController: UINavigationController, container: DependencyContainer) {
         self.navigationController = navigationController
@@ -23,9 +24,9 @@ final class SearchCoordinator {
 
     /// Starts the coordinator and displays the search screen.
     func start() {
-        let repository = container.makeMockMovieRepository()
-        let viewModel = SearchViewModel(repository: repository)
-        let view = SearchView(viewModel: viewModel)
+        let repository = container.makeMovieRepository()
+        viewModel = SearchViewModel(repository: repository)
+        let view = SearchView(viewModel: viewModel!)
         let hostingController = UIHostingController(rootView: view)
         hostingController.title = "Search"
         navigationController.pushViewController(hostingController, animated: false)

@@ -16,7 +16,7 @@ struct SearchView: View {
         Group {
             switch viewModel.state {
             case .idle:
-                emptyStateView(message: "Search for movies")
+                EmptyView()
 
             case .loading:
                 ProgressView("Searching...")
@@ -35,12 +35,20 @@ struct SearchView: View {
                 emptyStateView(message: message)
             }
         }
-        .searchable(text: $viewModel.query, prompt: "Search movies...")
+        .searchable(text: $viewModel.query, placement:.navigationBarDrawer, prompt: "Search movies...")
+        .navigationTitle("Search Movies")
+        
     }
 
     private func emptyStateView(message: String) -> some View {
         Text(message)
             .foregroundStyle(.secondary)
             .frame(maxHeight: .infinity)
+    }
+}
+
+#Preview {
+    NavigationStack {
+        SearchView(viewModel: SearchViewModel(repository: MockMovieRepository()))
     }
 }
