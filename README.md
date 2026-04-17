@@ -82,6 +82,37 @@ MovieDataBase/
 - **Search** - Search movies with debounced input using Combine
 - **Image Caching** - Efficient image loading with memory and disk caching
 
+## Testing
+
+Comprehensive unit tests ensure reliability across all architectural layers using XCTest framework.
+
+### Test Coverage
+
+| Component | Test File | Focus Area |
+|-----------|-----------|------------|
+| Network Layer | `NetworkClientTests` | Request/response handling, error mapping |
+| ViewModels | `MovieListViewModelTests` | State transitions, loading flows |
+| ViewModels | `SearchViewModelTests` | Debounce behavior, search states |
+| Repositories | `MovieRepositoryTests` | Endpoint construction, data flow |
+| Repositories | `UserRepositoryTests` | API integration |
+
+### URLProtocol Pattern for Network Testing
+
+The network layer tests use **`MockURLProtocol`** to intercept and mock URLSession requests without hitting real endpoints. This pattern provides:
+
+- **Deterministic testing** - Control exactly what the network returns
+- **Fast execution** - No real HTTP calls
+- **Error simulation** - Test all error paths (401, 500, network failures, decoding errors)
+- **Isolation** - Test network logic independently from API availability
+
+### Mock Repositories for ViewModel Testing
+
+ViewModels are tested using `MockMovieRepositoryForTests` that conforms to `MovieRepositoryProtocol`, allowing:
+
+- **State verification** - Assert ViewModel transitions through idle → loading → loaded/error
+- **Async testing** - Test async/await flows with controlled timing
+- **Error scenarios** - Simulate repository failures to test error handling
+
 ## Requirements
 
 - iOS 16.0+

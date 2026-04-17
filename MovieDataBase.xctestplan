@@ -1,0 +1,39 @@
+{
+  "configurations" : [
+    {
+      "id" : "EDB674E0-21A1-48ED-B5B9-FF5D69F8260E",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MovieDataBase.xcodeproj",
+      "identifier" : "AD4AABEB2F8EC192003FF226",
+      "name" : "MovieDataBase"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MovieDataBase.xcodeproj",
+        "identifier" : "AD4AAC012F8EC197003FF226",
+        "name" : "MovieDataBaseTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MovieDataBase.xcodeproj",
+        "identifier" : "AD4AAC0B2F8EC197003FF226",
+        "name" : "MovieDataBaseUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

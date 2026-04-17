@@ -31,6 +31,7 @@
 		AD4AABEC2F8EC192003FF226 /* MovieDataBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieDataBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD4AAC022F8EC197003FF226 /* MovieDataBaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieDataBaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD4AAC0C2F8EC197003FF226 /* MovieDataBaseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieDataBaseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADAE12C82F92BDB2005BD934 /* MovieDataBase.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; path = MovieDataBase.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -93,6 +94,7 @@
 		AD4AABE32F8EC192003FF226 = {
 			isa = PBXGroup;
 			children = (
+				ADAE12C82F92BDB2005BD934 /* MovieDataBase.xctestplan */,
 				AD4AABEE2F8EC192003FF226 /* MovieDataBase */,
 				AD4AAC052F8EC197003FF226 /* MovieDataBaseTests */,
 				AD4AAC0F2F8EC197003FF226 /* MovieDataBaseUITests */,

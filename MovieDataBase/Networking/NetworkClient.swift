@@ -11,7 +11,7 @@ import Foundation
 ///
 /// Handles URL construction, request execution, and response decoding.
 /// Maps HTTP errors and URLSession errors to typed NetworkError cases.
-final class NetworkClient {
+class NetworkClient {
     /// Base URL for all API requests.
     private let baseURL: String
 
