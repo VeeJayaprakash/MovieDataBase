@@ -118,7 +118,7 @@ final class MockNetworkClient: NetworkClient {
     var capturedEndpoint: Endpoint?
 
     init() {
-        super.init(baseURL: "https://test.com")
+        super.init(baseURL: "https://test.com", tokenProvider: nil)
     }
 
     override func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {

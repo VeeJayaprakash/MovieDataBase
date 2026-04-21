@@ -76,6 +76,13 @@ MovieDataBase/
     └── Preview Assets/
 ```
 
+## Screenshots
+
+<p align="center">
+  <img src="Screenshots/movie-list.png" width="375" alt="Movie List" />
+  <img src="Screenshots/search.png" width="375" alt="Search" />
+</p>
+
 ## Features
 
 - **Movie List** - Browse popular movies with pull-to-refresh

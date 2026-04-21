@@ -26,7 +26,7 @@ final class AppCoordinator {
     /// Starts the coordinator and displays the tab bar.
     func start() {
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.tintColor = UIColor(red: 228/255, green: 170/255, blue: 0/255, alpha: 1) // #E4AA00
+        tabBarController.tabBar.tintColor = UIColor(named: "AccentColor") 
 
         // Movie List Tab
         let movieListNav = UINavigationController()

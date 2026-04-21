@@ -17,7 +17,7 @@ final class NetworkClientTests: XCTestCase {
         let config = URLSessionConfiguration.ephemeral
         config.protocolClasses = [MockURLProtocol.self]
         let session = URLSession(configuration: config)
-        sut = NetworkClient(baseURL: "https://api.test.com", session: session)
+        sut = NetworkClient(baseURL: "https://api.test.com", session: session, tokenProvider: nil)
     }
 
     override func tearDown() {
@@ -27,6 +27,40 @@ final class NetworkClientTests: XCTestCase {
     }
 
     // MARK: - Success Cases
+
+    func test_request_withTokenProvider_addsAuthorizationHeader() async throws {
+        // Given
+        let expectedToken = "test-bearer-token"
+        let mockTokenProvider = MockTokenProvider(token: expectedToken)
+
+        let config = URLSessionConfiguration.ephemeral
+        config.protocolClasses = [MockURLProtocol.self]
+        let session = URLSession(configuration: config)
+        let clientWithToken = NetworkClient(baseURL: "https://api.test.com", session: session, tokenProvider: mockTokenProvider)
+
+        let expectedMovie = TestMovie(id: 1, title: "Test Movie")
+        let data = try JSONEncoder().encode(expectedMovie)
+
+        var capturedRequest: URLRequest?
+        MockURLProtocol.requestHandler = { request in
+            capturedRequest = request
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 200,
+                httpVersion: nil,
+                headerFields: nil
+            )!
+            return (response, data)
+        }
+
+        let endpoint = Endpoint(path: "/test")
+
+        // When
+        let _: TestMovie = try await clientWithToken.request(endpoint)
+
+        // Then
+        XCTAssertEqual(capturedRequest?.value(forHTTPHeaderField: "Authorization"), "Bearer \(expectedToken)")
+    }
 
     func test_request_successfulResponse_decodesData() async throws {
         // Given
@@ -192,6 +226,18 @@ final class NetworkClientTests: XCTestCase {
 struct TestMovie: Codable, Equatable {
     let id: Int
     let title: String
+}
+
+final class MockTokenProvider: TokenProvider {
+    private let token: String?
+
+    init(token: String?) {
+        self.token = token
+    }
+
+    func getToken() async -> String? {
+        return token
+    }
 }
 
 class MockURLProtocol: URLProtocol {

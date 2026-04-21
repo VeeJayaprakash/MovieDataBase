@@ -1,0 +1,25 @@
+//
+//  Config.swift.example
+//  MovieDataBase
+//
+//  Created by Vijendran  on 4/20/26.
+//
+
+import Foundation
+
+/// Configuration for the application.
+///
+/// SETUP INSTRUCTIONS:
+/// 1. Copy this file to Config.swift (same directory)
+/// 2. Replace "YOUR_AUTH_TOKEN_HERE" with your actual Bearer token obtained from TMDB portal.
+/// 3. Config.swift is gitignored and will not be committed
+///
+/// Example:
+/// struct Config {
+///     static let authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+/// }
+struct Config {
+    /// Authentication token for API requests.
+    /// Replace with your actual Bearer token obtained from TMDB portal.
+    static let authToken = "YOUR_AUTH_TOKEN_HERE"
+}

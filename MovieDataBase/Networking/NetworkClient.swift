@@ -18,6 +18,9 @@ class NetworkClient {
     /// URL session for network requests.
     private let session: URLSession
 
+    /// Token provider for authentication.
+    private let tokenProvider: TokenProvider?
+
     /// JSON decoder configured for TMDB API responses.
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -25,9 +28,10 @@ class NetworkClient {
         return decoder
     }()
 
-    init(baseURL: String, session: URLSession = .shared) {
+    init(baseURL: String, session: URLSession = .shared, tokenProvider: TokenProvider? = nil) {
         self.baseURL = baseURL
         self.session = session
+        self.tokenProvider = tokenProvider
     }
 
     /// Executes a network request and decodes the response.
@@ -49,6 +53,11 @@ class NetworkClient {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = endpoint.method.rawValue
         urlRequest.httpBody = endpoint.body
+
+        // Add Authorization header if token is available
+        if let token = await tokenProvider?.getToken() {
+            urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
 
         endpoint.headers?.forEach { key, value in
             urlRequest.setValue(value, forHTTPHeaderField: key)

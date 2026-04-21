@@ -12,9 +12,14 @@ import Foundation
 /// Created at app startup and passed to coordinators.
 final class DependencyContainer {
     private let networkClient: NetworkClient
+    private let tokenProvider: TokenProvider
 
     init() {
-        networkClient = NetworkClient(baseURL: "https://api.themoviedb.org")
+        tokenProvider = SimpleTokenProvider()
+        networkClient = NetworkClient(
+            baseURL: "https://api.themoviedb.org",
+            tokenProvider: tokenProvider
+        )
     }
 
     // MARK: - Repositories
