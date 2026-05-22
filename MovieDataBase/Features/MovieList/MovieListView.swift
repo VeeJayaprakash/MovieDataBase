@@ -12,38 +12,60 @@ import Kingfisher
 struct MovieListView: View {
     @ObservedObject var viewModel: MovieListViewModel
 
+    
     var body: some View {
-        Group {
-            switch viewModel.state {
-            case .idle:
-                Color.clear
-                    .onAppear {
-                        Task { await viewModel.fetchMovies() }
-                    }
-
-            case .loading:
-                ProgressView("Loading movies...")
-
-            case .loaded(let movies):
-                List(movies) { movie in
+        VStack {
+            List {
+                ForEach(viewModel.movies) { movie in
                     MovieRowView(movie: movie)
                 }
-                .listStyle(.plain)
-                .refreshable {
-                    await viewModel.fetchMovies()
+                if viewModel.showLoadMore {
+                    Text("Loading...")
+                        .font(.callout)
+                        .frame(maxWidth:.infinity, alignment: .center)
+                        .listRowSeparator(.hidden)
                 }
-
-            case .error(let message):
-                VStack(spacing: 16) {
-                    Text(message)
-                        .foregroundStyle(.secondary)
-                    Button("Retry") {
-                        Task { await viewModel.fetchMovies() }
+            }
+            .listStyle(.plain)
+            .refreshable {
+                await viewModel.fetchMovies()
+            }
+            .onScrollGeometryChange(for: Bool.self) { geometry in
+                let maxOffset = geometry.contentSize.height - geometry.containerSize.height
+                return geometry.contentOffset.y >= maxOffset - 400
+            } action: { wasNearBottom, isNearBottom in
+                if isNearBottom == true && wasNearBottom != isNearBottom {
+                    Task {
+                        await viewModel.fetchMoreMovies()
                     }
                 }
             }
         }
+        .overlay(alignment: .center, content: {
+            switch viewModel.state {
+                case .idle:
+                    EmptyView()
+
+                case .loading:
+                    ProgressView("Loading movies...")
+
+                case .loaded:
+                    EmptyView()
+                   
+                case .error(let message):
+                    VStack(spacing: 16) {
+                        Text(message)
+                            .foregroundStyle(.secondary)
+                        Button("Retry") {
+                            Task { await viewModel.fetchMovies() }
+                        }
+                    }
+            }
+        })
         .navigationTitle("Movies")
+        .onAppear {
+            Task { await viewModel.fetchMovies() }
+        }
     }
 }
 
