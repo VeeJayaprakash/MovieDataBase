@@ -84,7 +84,8 @@ MovieDataBase/
 ## Screenshots
 
 <p align="center">
-  <img src="Screenshots/movie-list.png" width="375" alt="Movie List" />
+  <img src="Screenshots/Movie_grid.png" width="375" alt="Movie Grid" />
+  <img src="Screenshots/Movie_detail.png" width="375" alt="Movie Detail" />
   <img src="Screenshots/search.png" width="375" alt="Search" />
 </p>
 
