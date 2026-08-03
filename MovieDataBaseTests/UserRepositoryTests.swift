@@ -8,6 +8,7 @@
 import XCTest
 @testable import MovieDataBase
 
+@MainActor
 final class UserRepositoryTests: XCTestCase {
 
     var sut: UserRepository!

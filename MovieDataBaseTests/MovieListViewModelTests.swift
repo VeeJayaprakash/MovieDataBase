@@ -56,10 +56,10 @@ final class MovieListViewModelTests: XCTestCase {
         await sut.fetchMovies()
 
         // Then
-        if case .loaded(let movies) = sut.state {
-            XCTAssertEqual(movies.count, 2)
-            XCTAssertEqual(movies[0].id, 1)
-            XCTAssertEqual(movies[1].id, 2)
+        if case .loaded = sut.state {
+            XCTAssertEqual(sut.movies.count, 2)
+            XCTAssertEqual(sut.movies[0].id, 1)
+            XCTAssertEqual(sut.movies[1].id, 2)
         } else {
             XCTFail("Expected loaded state, got \(sut.state)")
         }

@@ -8,6 +8,7 @@
 import XCTest
 @testable import MovieDataBase
 
+@MainActor
 final class MovieRepositoryTests: XCTestCase {
 
     var sut: MovieRepository!
@@ -113,6 +114,7 @@ final class MovieRepositoryTests: XCTestCase {
 
 // MARK: - Mock Network Client
 
+@MainActor
 final class MockNetworkClient: NetworkClient {
     var result: Result<Any, Error>?
     var capturedEndpoint: Endpoint?
