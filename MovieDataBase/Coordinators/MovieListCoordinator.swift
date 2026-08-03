@@ -25,10 +25,18 @@ final class MovieListCoordinator {
     /// Starts the coordinator and displays the movie list.
     func start() {
         let repository = container.makeMovieRepository()
-        viewModel = MovieListViewModel(repository: repository)
+        viewModel = MovieListViewModel(repository: repository,
+                                       onMovieSelected: self.navigateToDetailScreenFor)
         let view = MovieListView(viewModel: viewModel!)
         let hostingController = UIHostingController(rootView: view)
         hostingController.title = "Popular Movies"
         navigationController.pushViewController(hostingController, animated: false)
+    }
+    
+    func navigateToDetailScreenFor(movie:Movie) {
+        let view = MovieDetailView(movie: movie)
+        let hostingController = UIHostingController(rootView: view)
+        hostingController.title = movie.title
+        navigationController.pushViewController(hostingController, animated: true)
     }
 }

@@ -29,9 +29,11 @@ final class MovieListViewModel: ObservableObject {
 
     private var currentPage = 0
     private var totalPages = 1
+    private var onMovieSelected: ((Movie) -> Void)?
 
-    init(repository: MovieRepositoryProtocol) {
+    init(repository: MovieRepositoryProtocol, onMovieSelected:((Movie) -> Void)? = nil ) {
         self.repository = repository
+        self.onMovieSelected = onMovieSelected
     }
 
     /// Fetches popular movies from the repository.
@@ -65,5 +67,9 @@ final class MovieListViewModel: ObservableObject {
             // Silent failure for pagination - don't disrupt already loaded content
         }
         showLoadMore = false
+    }
+    
+    func selected(movie:Movie) {
+        onMovieSelected?(movie)
     }
 }
