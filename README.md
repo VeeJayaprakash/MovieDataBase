@@ -55,6 +55,11 @@ MovieDataBase/
 │   ├── MovieList/
 │   │   ├── MovieListView.swift
 │   │   └── MovieListViewModel.swift
+│   │   └── MovieGridItem.swift
+│   │   └── MovieRowView.swift
+│   ├── MovieDetail/
+│   │   ├── MovieDetailView.swift
+│   │   └── MovieDetailViewModel.swift
 │   └── Search/
 │       ├── SearchView.swift
 │       └── SearchViewModel.swift
@@ -85,7 +90,8 @@ MovieDataBase/
 
 ## Features
 
-- **Movie List** - Browse popular movies with pull-to-refresh
+- **Movie List** - Browse popular movies, the movie list is now upgraded to grid view.
+- **Movie Detail** - Movie detail screen presents additional details of selected movie.
 - **Search** - Search movies with debounced input using Combine
 - **Image Caching** - Efficient image loading with memory and disk caching
 
